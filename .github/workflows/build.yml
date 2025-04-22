@@ -27,9 +27,12 @@ jobs:
 
     - name: Initialize Repo
       run: |
+        sudo curl -o /usr/local/bin/repo https://storage.googleapis.com/git-repo-downloads/repo
+        sudo chmod a+rx /usr/local/bin/repo
+
         mkdir rom && cd rom
-        repo init -u https://github.com/Veerhooda/manifest -b vic
-        repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune -j$(nproc --all)
+        repo init -u https://github.com/Veerhooda/manifest -b main  # Replace with correct branch if needed
+        repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --depth=1 -j$(nproc --all)
 
     - name: Clone Device Tree
       run: |
@@ -50,8 +53,16 @@ jobs:
         ls rom/out/target/product/oneplus2/ || exit 1
         ls rom/out/target/product/oneplus2/*.zip || (echo "No ROM zip found!" && exit 1)
 
+    - name: Clean up temporary files
+      run: |
+        sudo rm -rf /home/runner/work/_temp/*
+        sudo rm -rf /home/runner/work/manifest/manifest/rom/out/*
+
     - name: Upload Output
       uses: actions/upload-artifact@v4
       with:
         name: EvoX-ROM
         path: rom/out/target/product/oneplus2/*.zip
+
+    - name: Check disk space
+      run: df -h
