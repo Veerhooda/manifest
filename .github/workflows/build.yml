@@ -31,7 +31,7 @@ jobs:
         sudo chmod a+rx /usr/local/bin/repo
 
         mkdir rom && cd rom
-        repo init -u https://github.com/Veerhooda/manifest -b main  # Replace with correct branch if needed
+        repo init -u https://github.com/Veerhooda/manifest -b vic
         repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --depth=1 -j$(nproc --all)
 
     - name: Clone Device Tree
