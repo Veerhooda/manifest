@@ -28,7 +28,7 @@ jobs:
     - name: Initialize Repo
       run: |
         mkdir rom && cd rom
-        repo init -u https://github.com/Veerhooda/manifest -b twelve
+        repo init -u https://github.com/Veerhooda/manifest -b vic
         repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune -j$(nproc --all)
 
     - name: Clone Device Tree
