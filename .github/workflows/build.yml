@@ -9,7 +9,7 @@ jobs:
     name: Build EvoX Android 15
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Environment
       run: |
@@ -45,7 +45,7 @@ jobs:
         ls rom/out/target/product/oneplus2/*.zip || (echo "No ROM zip found!" && exit 1)
 
     - name: Upload Output
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: EvoX-ROM
         path: rom/out/target/product/oneplus2/*.zip
