@@ -39,6 +39,11 @@ jobs:
         lunch evolution_oneplus2-userdebug
         mka bacon -j$(nproc --all)
 
+    - name: Check ROM output
+      run: |
+        ls rom/out/target/product/oneplus2/ || exit 1
+        ls rom/out/target/product/oneplus2/*.zip || (echo "No ROM zip found!" && exit 1)
+
     - name: Upload Output
       uses: actions/upload-artifact@v3
       with:
